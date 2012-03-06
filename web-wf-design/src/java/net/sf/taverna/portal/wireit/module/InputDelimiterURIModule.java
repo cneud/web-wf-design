@@ -2,9 +2,10 @@ package net.sf.taverna.portal.wireit.module;
 
 import net.sf.taverna.portal.utils.DelimiterURI;
 import net.sf.taverna.portal.wireit.exception.WireItRunException;
-import java.net.URISyntaxException;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.net.URISyntaxException;
 
 /**
  * Input module for a depth 1 port where both a url and a delimiter are required.
@@ -41,7 +42,7 @@ public class InputDelimiterURIModule extends InputModule{
             DelimiterURI value = new DelimiterURI(uri.toString(), delimiter.toString());
             output.fireOutputReady(value, outputBuilder);
         } catch (URISyntaxException ex) {
-            throw new WireItRunException("Ilegal URI: " + uri, ex);
+            throw new WireItRunException("Illegal URI: " + uri, ex);
         }
     }
 

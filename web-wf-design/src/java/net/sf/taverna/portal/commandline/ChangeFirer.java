@@ -1,8 +1,8 @@
 package net.sf.taverna.portal.commandline;
 
-import java.util.ArrayList;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import java.util.ArrayList;
 
 /**
  * Thin superclass which holds ChangeListeners and handles the firing of change events.
@@ -16,7 +16,7 @@ public class ChangeFirer {
     private ArrayList<ChangeListener> listeners = new ArrayList<ChangeListener>();
 
     /**
-     * Adds a <code>ChangeListener</code> to thiis class.
+     * Adds a <code>ChangeListener</code> to this class.
      * 
      * If the ChangeListener has already been registered it is ignored.
      * 

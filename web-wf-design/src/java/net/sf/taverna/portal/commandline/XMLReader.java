@@ -4,20 +4,16 @@
  */
 package net.sf.taverna.portal.commandline;
 
+import org.w3c.dom.*;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import org.w3c.dom.Attr;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 /**
  *
@@ -53,7 +49,7 @@ public class XMLReader {
     }
     
     private static void showNode(Node node, int depth) throws SAXException{
-        //ystem.out.println(node.getNodeType());
+        //system.out.println(node.getNodeType());
         NodeList children;
         switch (node.getNodeType()){
             case Node.ATTRIBUTE_NODE:
@@ -148,17 +144,17 @@ public class XMLReader {
     public static String getTextFromTree(Document document, String[] tree) throws SAXException{
         Element element = document.getDocumentElement();
         List<Node> childrenList;
-        for (int i = 0; i < tree.length; i++){
-           childrenList = getDirectChildrenByName(element, tree[i]);
-           if (childrenList.size() == 0){
-               showNode(element, 0);
-               throw new SAXException("No element of name " + tree[i] + " found in path ");
-           }
-           if (childrenList.size() > 1){
-               showNode(element, 0);
-               throw new SAXException("More than one element of name " + tree[i] + "found in path ");
-           }
-           element = (Element)childrenList.get(0);
+        for (String aTree : tree) {
+            childrenList = getDirectChildrenByName(element, aTree);
+            if (childrenList.size() == 0) {
+                showNode(element, 0);
+                throw new SAXException("No element of name " + aTree + " found in path ");
+            }
+            if (childrenList.size() > 1) {
+                showNode(element, 0);
+                throw new SAXException("More than one element of name " + aTree + "found in path ");
+            }
+            element = (Element) childrenList.get(0);
         }
         return getText(element);
     }
@@ -180,16 +176,16 @@ public class XMLReader {
     
     public static List<String> getTextsFromTree( List<Node> nodeList, List<String> tree) throws SAXException{
         List<Node> children = new ArrayList<Node>();
-        for (int i = 0; i < nodeList.size(); i++){
-            List<Node> newChildren = getDirectChildrenByName(nodeList.get(i), tree.get(0));
+        for (Node aNodeList : nodeList) {
+            List<Node> newChildren = getDirectChildrenByName(aNodeList, tree.get(0));
             children.addAll(newChildren);
         }
         if (tree.size() == 1){
             List<String> results = new ArrayList<String>();
-            //ystem.out.println("****");
-            //ystem.out.println(children);
-             for (int i = 0; i < children.size(); i++){
-                results.add(getText(children.get(i)));
+            //system.out.println("****");
+            //system.out.println(children);
+            for (Node aChildren : children) {
+                results.add(getText(aChildren));
             }
             return results;
         } else {

@@ -13,7 +13,7 @@ public class StreamBufferer extends Thread {
 
     private InputStream is;
     private String type;
-    private StringBuilder builder;
+    private final StringBuilder builder;
     public static String NEW_LINE = System.getProperty("line.separator");
 
     /**

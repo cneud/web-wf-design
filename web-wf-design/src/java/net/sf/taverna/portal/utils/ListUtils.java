@@ -1,9 +1,10 @@
 package net.sf.taverna.portal.utils;
 
+import net.sf.taverna.portal.baclava.DataThingBasedBaclava;
+import net.sf.taverna.portal.commandline.TavernaException;
+
 import java.io.File;
 import java.util.ArrayList;
-import net.sf.taverna.portal.commandline.TavernaException;
-import net.sf.taverna.portal.baclava.DataThingBasedBaclava;
 
 /**
  * Utilities for converting Lists into a Single String Array.
@@ -16,7 +17,7 @@ import net.sf.taverna.portal.baclava.DataThingBasedBaclava;
 public class ListUtils {
     
     /**
-     * Recurcive method to flatten Lists into a Single Array
+     * Recursive method to flatten Lists into a Single Array
      * @param list A possibly multiple level list.
      * @return List flattened and all objects as String
      */

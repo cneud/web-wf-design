@@ -7,9 +7,9 @@ import net.sf.taverna.portal.wireit.event.OutputFirer;
 import net.sf.taverna.portal.wireit.event.OutputListener;
 
 /**
- * This module has two funtions, save the value to pass back to WireIt and pass the value to the next module.
+ * This module has two functions, save the value to pass back to WireIt and pass the value to the next module.
  * <p>
- * This same module can be use for URL, Baclava and String pass throughs and any other passthrough 
+ * This same module can be use for URL, Baclava and String pass through and any other pass through
  *    as long at Object type is understood by the JSONObject constructor.
  * @author Christian
  */
@@ -58,7 +58,7 @@ public class PassThroughModule extends Module implements OutputListener{
      * 
      * @param output Information being passed from one module to another.
      * @param outputBuilder Logging buffer. 
-     * @throws WireItRunException Something has gone wrong. This could be caused by exectution 
+     * @throws WireItRunException Something has gone wrong. This could be caused by execution
      *    or even one of the downstream modules.
      */
     public void outputReady(Object output, StringBuilder outputBuilder) throws WireItRunException{

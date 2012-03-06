@@ -1,13 +1,14 @@
 package net.sf.taverna.portal.wireit.module;
 
+import net.sf.taverna.portal.wireit.event.OutputListener;
 import net.sf.taverna.portal.wireit.exception.WireItRunException;
-import java.util.Date;
 import org.json.JSONException;
 import org.json.JSONObject;
-import net.sf.taverna.portal.wireit.event.OutputListener;
+
+import java.util.Date;
 
 /**
- * This module for Comment was a Testing module. Funstionality may be INCORRECT!
+ * This module for Comment was a Testing module. Functionality may be INCORRECT!
  * 
  * Currently it overwrites the comment with a quick run message.
  * 

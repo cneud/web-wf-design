@@ -28,7 +28,7 @@ public class TavernaInput {
      * 
      * @param name Name used in the workflow
      * @param depth Depth as defined by the workflow
-     * @throws TavernaException Thrown if the name is null or Emoty.
+     * @throws TavernaException Thrown if the name is null or empty.
      *     Thrown if the depth is not 0 or 1.
      */
     public TavernaInput(String name, int depth) throws TavernaException {
@@ -103,9 +103,9 @@ public class TavernaInput {
         if (values.length == 0){
             throw new TavernaException ("Empty values not allowed");
         }
-        for (int i = 0; i< values.length; i++){
-            if (values[i] == null){
-                throw new TavernaException ("None of the values may be null. ");
+        for (String value1 : values) {
+            if (value1 == null) {
+                throw new TavernaException("None of the values may be null. ");
             }
         }
         this.values = values;
@@ -220,15 +220,14 @@ public class TavernaInput {
      */
     public String findADelimiter(String[] values) throws TavernaException{
         String[] possibleDelimiters = {" ",",",";",":","/","\\",".","#","_","£","$","^","!","@"};
-        for (int i = 0; i <  possibleDelimiters.length; i++){
-            String possibleDelimiter = possibleDelimiters[i];
+        for (String possibleDelimiter : possibleDelimiters) {
             boolean usable = true;
-            for (String value:values){
-                if (value.contains(possibleDelimiter)){
+            for (String value : values) {
+                if (value.contains(possibleDelimiter)) {
                     usable = false;
                 }
             }
-            if (usable){
+            if (usable) {
                 return possibleDelimiter;
             }
         }
@@ -314,7 +313,7 @@ public class TavernaInput {
      * 
      * @throws TavernaException Thrown if this method is called before a value is added. 
      */
-    public List<String> getInputArguements() throws TavernaException{
+    public List<String> getInputArguments() throws TavernaException{
         ArrayList<String> list = new ArrayList<String>();
         if (value != null){
             list.add("-inputvalue");
@@ -343,7 +342,7 @@ public class TavernaInput {
                 list.add("\"" + delimiter + "\"");
             }
         } else {
-            throw new TavernaException("Illegal call to getInputArguements before setting input");
+            throw new TavernaException("Illegal call to getInputArguments before setting input");
         }
         return list;
     }

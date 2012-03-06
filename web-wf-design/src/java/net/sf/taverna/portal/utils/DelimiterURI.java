@@ -9,7 +9,7 @@ import java.net.URISyntaxException;
  * <p>
  * These are used for Depth 1 port where data comes from an external source.
  * <p>
- * See Constructor some delimiters wich are changed from escaped characters.
+ * See Constructor some delimiters which are changed from escaped characters.
  * @author Christian
  */
 public class DelimiterURI {
@@ -27,7 +27,7 @@ public class DelimiterURI {
      * Constructs a wrapper, converting escaped values to the actual value.
      * <p>
      * The following if by themselves are assumed to be escape characters and replaced.
-     * "\n", "\t" and these two wrapped in doulde quotes.
+     * "\n", "\t" and these two wrapped in double quotes.
      * <p>
      * Quotes are also stripped of.
      * <p>

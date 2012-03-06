@@ -1,5 +1,14 @@
 package net.sf.taverna.portal.wireit;
 
+import net.sf.taverna.portal.commandline.TavernaException;
+import net.sf.taverna.portal.utils.Resolver;
+import net.sf.taverna.portal.wireit.exception.WireItRunException;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URISyntaxException;
@@ -7,14 +16,6 @@ import java.net.URLDecoder;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.StringTokenizer;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import org.json.JSONException;
-import org.json.JSONObject;
-import net.sf.taverna.portal.wireit.exception.WireItRunException;
-import net.sf.taverna.portal.commandline.TavernaException;
-import net.sf.taverna.portal.utils.Resolver;
 
 /**
  * This is the servlet that receives the run call.
@@ -93,15 +94,15 @@ public class RunWireit extends WireitSQLBase {
     }
   
     /**
-     * @return TavernaHome retreived from the paramters. May be null;
+     * @return TavernaHome retrieved from the parameters. May be null;
      */
     public static String getTavernaHome(){
         return tavernaHome;
     }
     
     /**
-     * Extracts the "working" paramter and converts it to a Json object
-     * @param parameters The paramters in the bidy of the message
+     * Extracts the "working" parameter and converts it to a Json object
+     * @param parameters The parameters in the body of the message
      * @return Pipe in json format
      * @throws ServletException  Any exception extracting the json.
      */
@@ -173,7 +174,7 @@ public class RunWireit extends WireitSQLBase {
      * @param name Name of the pipe
      * @param working The Pipe as json (after it was run)
      * @param language The WireIt language the working belongs to.
-     * @return String represention (encoded) or the pipe.
+     * @return String representation (encoded) or the pipe.
      */
     private String getOutput(String name, JSONObject working, String language){
         StringBuilder builder = new StringBuilder();
@@ -193,7 +194,7 @@ public class RunWireit extends WireitSQLBase {
     }
     
     /**
-     * Splits the request body into a map of paramters.
+     * Splits the request body into a map of parameters.
      * @param input Body as a Single String
      * @return Body as a map of Names to values.
      */

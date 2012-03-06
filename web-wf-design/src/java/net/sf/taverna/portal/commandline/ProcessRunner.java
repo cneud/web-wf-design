@@ -12,20 +12,20 @@ import java.util.Date;
 public class ProcessRunner {
     
     private Process process;
-    private StringBuilder builder;
+    private final StringBuilder builder;
     public static String NEW_LINE = System.getProperty("line.separator");
     private String[] args;
     private File directory;
  
     /** 
-     * Sets up (but does not start) a process saving its arguements and the directory to run it in.
+     * Sets up (but does not start) a process saving its arguments and the directory to run it in.
      * 
-     * Saves the directory and arguements so that they can be retreived by getRunInfo() even before the process start.
+     * Saves the directory and arguments so that they can be retrieved by getRunInfo() even before the process start.
      * <p>
      * Requires a second call to start otherwise the process will never run.
      * 
-     * @param args List of arguements to be passed unchanged to the process 
-     *    where arguement 0 is normally the process itslef.
+     * @param args List of arguments to be passed unchanged to the process
+     *    where argument 0 is normally the process itself.
      * @param directory Optional directory from which to run the process.
      *    If null the current directory will be used.
      * @throws IOException Thrown if a none null directory can not be found or is not a directory.
@@ -106,7 +106,7 @@ public class ProcessRunner {
      * 
      * Non blocking method that returns the output of the process up to this point.
      * Expected to hold the parameters used to start. 
-     * Depending on when it is called may (but is never guaranteed to) include intermediate ouput.
+     * Depending on when it is called may (but is never guaranteed to) include intermediate output.
      * <p> 
      * Unlike other methods this one is not expected to fail or throw an Exception even if the run fails 
      *    or was interrupted but this behaviour is not guaranteed.
@@ -119,7 +119,7 @@ public class ProcessRunner {
     /**
      * Blocking process that waits for the process to finish and then returns the result valued returned by that process.
      * @return Result value returned by the process
-     * @throws InterruptedException Thrown by the process if it was Interruppted
+     * @throws InterruptedException Thrown by the process if it was interrupted
      * @throws ProcessException Thrown if this method called before the process was started.
      */
     public int waitFor() throws InterruptedException, ProcessException{
@@ -135,7 +135,7 @@ public class ProcessRunner {
      * Blocks until the process run has finished.
      * Works even if the process result was not 0.
      * 
-     * @return Output of this process including the arguements used to start is
+     * @return Output of this process including the arguments used to start is
      * 
      * @throws ProcessException If the process was not started.
      */

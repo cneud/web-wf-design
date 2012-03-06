@@ -21,7 +21,7 @@ public interface TavernaWorkflow {
     public String getWorkflowName();
     
     /**
-     * Obtains the expected inputs by name and the corrospondoing depth for each input.
+     * Obtains the expected inputs by name and the corresponding depth for each input.
      * 
      * Taverna workflows consider a single value as depth zero, a list as depth 1 ect.
      * Regrettably at the time of writing there was no way to identify the expected inout types from a Taverna workflow.
@@ -32,7 +32,7 @@ public interface TavernaWorkflow {
     /**
      * Obtains the expected outputs by name.
      * 
-     * Regrettably at the time of writing there was no way to identify the expected outout types from a Taverna workflow.
+     * Regrettably at the time of writing there was no way to identify the expected output types from a Taverna workflow.
      * @return List of output names.
      */
     public List<String> getOutputs();

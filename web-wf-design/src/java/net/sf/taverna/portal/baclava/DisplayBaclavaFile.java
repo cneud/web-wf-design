@@ -1,47 +1,27 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.sf.taverna.portal.baclava;
 
 import eu.medsea.mimeutil.MimeType;
 import eu.medsea.mimeutil.MimeUtil2;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileFilter;
-//import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintWriter;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URL;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.security.DigestInputStream;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.Formatter;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import net.sf.taverna.t2.baclava.DataThing;
 import net.sf.taverna.t2.baclava.factory.DataThingXMLFactory;
 import org.apache.commons.io.FileUtils;
 import org.jdom.Document;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.net.*;
+import java.security.DigestInputStream;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.*;
+
+//import java.io.FileInputStream;
 //import playground.library.functional.iterator.RecursiveFileListIterator;
 
 /**
@@ -76,7 +56,7 @@ public class DisplayBaclavaFile extends HttpServlet {
         
         try {       
             // Get the Baclava file URL
-            String baclavaFileURLString = URLDecoder.decode(request.getParameter("baclava_document_url"), "UTF-8");;
+            String baclavaFileURLString = URLDecoder.decode(request.getParameter("baclava_document_url"), "UTF-8");
             //String baclavaFileURL = "http://localhost:8080/wf-design-wireit/Inputs/BaclavaExample.xml";           
             
             // Download the Baclava file to display
@@ -134,7 +114,7 @@ public class DisplayBaclavaFile extends HttpServlet {
                 System.out.println("Failed to generate SHA1 digest of the Baclava file. Using a random directory name to save data from Baclava file.");
                 ex.printStackTrace();
                 // Just generate a random number for the directory name
-                dataDirName = new Integer(new Random().nextInt(1000000000)).toString(); 
+                dataDirName = Integer.toString(new Random().nextInt(1000000000));
             }
 
             // Save data in the data directory inside the temp directory
@@ -312,7 +292,7 @@ public class DisplayBaclavaFile extends HttpServlet {
      */
     private String createHTMLTableFromBaclavaDataThingMap(Map<String, DataThing> dataThingMap, File dataDir, HttpServletRequest request) {                                   
         
-        StringBuffer dataTableHTML = new StringBuffer();
+        StringBuilder dataTableHTML = new StringBuilder();
 
         dataTableHTML.append("<table width=\"100%\" style=\"margin-bottom:3px;\">\n");
         dataTableHTML.append("<tr>\n");
@@ -330,9 +310,8 @@ public class DisplayBaclavaFile extends HttpServlet {
         int rowCount = 1;
         
         // Get all the ports and data associated with them
-        for (Iterator i = dataThingMap.keySet().iterator(); i.hasNext();) {
-            
-            String portName = (String) i.next();
+        for (String portName : dataThingMap.keySet()) {
+
             DataThing dataThing = dataThingMap.get(portName);
 
             // Get the data object for the port and calculate its depth
@@ -349,7 +328,7 @@ public class DisplayBaclavaFile extends HttpServlet {
             } else {
                 dataTypeBasedOnDepth = "list of depth " + dataDepth;
             }
-            
+
             // Get data's MIME type as given by the data object in the Baclava file
             // If a data object is a list - all items in the list will have the same MIME type!
             String mimeType = dataThing.getMostInterestingMIMETypeForObject(dataObject);
@@ -384,7 +363,7 @@ public class DisplayBaclavaFile extends HttpServlet {
 
         System.out.println("Loading data items saved from the Baclava file in " + dataDir);
 
-        StringBuffer dataTableHTML = new StringBuffer();
+        StringBuilder dataTableHTML = new StringBuilder();
 
         dataTableHTML.append("<table width=\"100%\" style=\"margin-bottom:3px;\">\n");
         dataTableHTML.append("<tr>\n");
@@ -523,7 +502,7 @@ public class DisplayBaclavaFile extends HttpServlet {
     private String createResultTree(Object dataObject, int maxDepth, int currentDepth, String parentIndex, String dataFileParentPath, String mimeType, HttpServletRequest request) {
         //System.out.println("maxDepth " +  maxDepth + "; currentDepti " + currentDepth + "; dataFileParentPath " + dataFileParentPath + "; mime type " + mimeType);
 
-        StringBuffer resultTreeHTML = new StringBuffer();
+        StringBuilder resultTreeHTML = new StringBuilder();
 
         if (maxDepth == 0) { // Result data is a single item only
             try {
@@ -779,12 +758,12 @@ public class DisplayBaclavaFile extends HttpServlet {
             
             int num1 = 0;
             int num2 = 0;
-            
-            for (int i = 0; i < num1List.length; i ++){
-                num1 = 10 * num1 + new Integer(num1List[i]).intValue();
+
+            for (String aNum1List : num1List) {
+                num1 = 10 * num1 + new Integer(aNum1List);
             }
-            for (int i = 0; i < num2List.length; i ++){
-                num2 = 10 * num2 + new Integer(num2List[i]).intValue();
+            for (String aNum2List : num2List) {
+                num2 = 10 * num2 + new Integer(aNum2List);
             }        
             
             return num1 - num2;

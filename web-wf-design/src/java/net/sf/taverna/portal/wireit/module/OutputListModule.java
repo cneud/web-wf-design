@@ -1,20 +1,21 @@
 package net.sf.taverna.portal.wireit.module;
 
 import net.sf.taverna.portal.utils.ListUtils;
+import net.sf.taverna.portal.wireit.event.OutputListener;
 import net.sf.taverna.portal.wireit.exception.WireItRunException;
-import java.util.ArrayList;
 import org.json.JSONException;
 import org.json.JSONObject;
-import net.sf.taverna.portal.wireit.event.OutputListener;
+
+import java.util.ArrayList;
 
 /**
  * Module to receive the output from a depth 1 Upstream Modules and return these to wireIt.
  * <p>
  * This module is only expected to save any inputs which iut does in a single String 
  *   with the values tokenized with a newline.
- *   This format is used as it is the one expcted by WireIt's textfield.
+ *   This format is used as it is the one expected by WireIt's text field.
  * <p>
- * WARNING: This is a prototype so does not yet handle all possible input types. Please Exstend accordingly.
+ * WARNING: This is a prototype so does not yet handle all possible input types. Please extend accordingly.
  * @author Christian
  */
 public class OutputListModule extends OutputModule implements OutputListener {
@@ -29,21 +30,21 @@ public class OutputListModule extends OutputModule implements OutputListener {
     }
     
     /**
-     * Revieves output which could be a list or even list of lists and saves A single long String.
+     * Receives output which could be a list or even list of lists and saves A single long String.
      * <p>
-     * The output format of a Singkle String with the values split by newlines #
+     * The output format of a Single String with the values split by newlines #
      *    is because that is what WireIt's textField uses.
      * <p>
-     * Lists of Lists are flattend.
+     * Lists of Lists are flattened.
      * <p>
-     * WARNING: This is a prototype so does not yet handle all possible input types. Please Exstend accordingly.
+     * WARNING: This is a prototype so does not yet handle all possible input types. Please extend accordingly.
      * @param outputBuilder Logging buffer. 
      * @throws WireItRunException An unexpected Object Type. Please extend the method,
      */
     public void outputReady(Object output, StringBuilder outputBuilder) throws WireItRunException {
-        //ystem.out.println("InnerListLisener.outputReady");
-        //ystem.out.println(output);
-        //ystem.out.println(output.getClass());
+        //system.out.println("InnerListListener.outputReady");
+        //system.out.println(output);
+        //system.out.println(output.getClass());
         String[] array;
         if (output instanceof String[]){
             array = (String[]) output;

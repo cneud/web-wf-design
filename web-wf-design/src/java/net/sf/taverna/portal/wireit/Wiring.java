@@ -1,15 +1,16 @@
 package net.sf.taverna.portal.wireit;
 
-import java.net.URISyntaxException;
+import net.sf.taverna.portal.commandline.TavernaException;
+import net.sf.taverna.portal.utils.Resolver;
+import net.sf.taverna.portal.wireit.event.OutputListener;
 import net.sf.taverna.portal.wireit.exception.WireItRunException;
-import java.io.IOException;
+import net.sf.taverna.portal.wireit.module.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import net.sf.taverna.portal.wireit.event.OutputListener;
-import net.sf.taverna.portal.wireit.module.*;
-import net.sf.taverna.portal.commandline.TavernaException;
-import net.sf.taverna.portal.utils.Resolver;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 /**
  * This class takes a Json pipe and converts it into a number of connected modules which can then be run.
@@ -17,7 +18,7 @@ import net.sf.taverna.portal.utils.Resolver;
  * A network of modules is built in the Constructor. 
  * Modules will be connected together using the listener pattern.
  * These can then be run, 
- * and finally cobverted back to a Json object with the updated values.
+ * and finally converted back to a Json object with the updated values.
  * @author Christian
  */
 public class Wiring {
@@ -52,7 +53,7 @@ public class Wiring {
      * @param jsonInput The pipe converted to json
      * @param resolver Util to convert between files, absolute uri and relative uris
      * @throws JSONException Thrown it the json is not in the expected format.
-     * @throws TavernaException Thrown by the TavernaModule if the information is inconsistant. 
+     * @throws TavernaException Thrown by the TavernaModule if the information is inconsistent.
      * @throws IOException Thrown by the TavernaModule if the workflow is unreadable.
      */
     public Wiring(JSONObject jsonInput, Resolver resolver)
@@ -126,8 +127,8 @@ public class Wiring {
      *     or when an exception is throw by a Listening module. 
      */
     public void run(StringBuilder outputBuilder) throws WireItRunException{
-        for (int i = 0; i < modules.length; i++){
-            modules[i].run(outputBuilder);
+        for (Module module : modules) {
+            module.run(outputBuilder);
         }
     }
     
@@ -146,8 +147,8 @@ public class Wiring {
         JSONObject me = new JSONObject();
         me.put("wires", wires);
         me.put("properties", properties);
-        for (int i = 0; i < modules.length; i++){
-            me.append("modules", modules[i].getJsonObject());
+        for (Module module : modules) {
+            me.append("modules", module.getJsonObject());
         }       
         return me;
     }

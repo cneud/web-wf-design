@@ -1,7 +1,8 @@
 package net.sf.taverna.portal.wireit.event;
 
-import java.util.ArrayList;
 import net.sf.taverna.portal.wireit.exception.WireItRunException;
+
+import java.util.ArrayList;
 
 /**
  * Support class which handles the firing of output ready to zero or more connected OutputListeners.
@@ -26,7 +27,7 @@ public class OutputFirer {
     private ArrayList<OutputListener> listeners = new ArrayList<OutputListener>();
 
     /**
-     * Adds an <code>OutputListener</code> to thiis class.
+     * Adds an <code>OutputListener</code> to this class.
      * 
      * If the <code>OutputListener</code> has already been registered it is ignored.
      * 
@@ -46,18 +47,18 @@ public class OutputFirer {
      * 
      * @param l the listener to be removed
      */
-    public void removeOutoutListener(OutputListener l) {
+    public void removeOutputListener(OutputListener l) {
         listeners.remove(l);
     }
     
     /**
      * Passes the Object on to any downstream modules,
      * <p>
-     * This could cuase the module to execute.
+     * This could cause the module to execute.
      * Any log information is written to the outputBuilder.
      * @param output Information being passed from one module to another.
      * @param outputBuilder Logging buffer. 
-     * @throws WireItRunException Something has gone wrong. This could be caused by exectution 
+     * @throws WireItRunException Something has gone wrong. This could be caused by execution
      *    or even one of the downstream modules.
      */
     public void fireOutputReady(Object output, StringBuilder outputBuilder) throws WireItRunException {

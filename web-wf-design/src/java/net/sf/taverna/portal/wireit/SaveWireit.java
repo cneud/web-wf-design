@@ -1,5 +1,12 @@
 package net.sf.taverna.portal.wireit;
 
+import org.apache.commons.io.FileUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -9,13 +16,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.StringTokenizer;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
 //Optional can be commented out to avoid using org.json
-import org.apache.commons.io.FileUtils;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 /**
  * Receives a Wiring from WireIt and saves it to the the SQL database.
@@ -80,8 +82,8 @@ public class SaveWireit extends WireitSQLBase {
      * <li>All values are Strings
      * </ul>
      * <p>
-     * It is recommeneded to save the values URLEncoded as especially working will contain many special characters
-     *    such as space, quotes, brackets (curly and square), commas and semicolumns
+     * It is recommended to save the values URLEncoded as especially working will contain many special characters
+     *    such as space, quotes, brackets (curly and square), commas and semicolons
      * 
      * @param request Body is expected to hold the request. Query and parameters are ignored.
      * @param response "{\"error\":null}" in "text/x-json;charset=UTF-8" format.
@@ -89,7 +91,7 @@ public class SaveWireit extends WireitSQLBase {
      * <ul>
      * <li> name is missing of longer than 255 characters</li>
      * <li> language is missing of longer than 255 characters</li>
-     * <li> working is missing or not parasable to json (when URLDecoded)</li>
+     * <li> working is missing or not parsable to json (when URLDecoded)</li>
      * <li> There was an SQLException running the update
      * <ul>
      * @throws IOException Thrown if the response can not be written.
@@ -125,8 +127,8 @@ public class SaveWireit extends WireitSQLBase {
       * 
       * See doPost for comments on the format.
       * Optionally working is check to make sure it is valid json.
-      * @param jsonString String as recieved from request
-      * @throws ServletException Unexpected inpit see doPost
+      * @param jsonString String as received from request
+      * @throws ServletException Unexpected input see doPost
       * @throws JSONException Thrown when working can not be convert to a Json object
       * @throws SQLException Thrown if sql update fails
       */
@@ -150,11 +152,15 @@ public class SaveWireit extends WireitSQLBase {
             }
         }
         //Check name and length exist and are not too long.
-        if (name.length() > 255){
-            throw new ServletException("Maximum size of name is 255");
+        if (name != null) {
+            if (name.length() > 255){
+                throw new ServletException("Maximum size of name is 255");
+            }
         }
-        if (language.length() > 255){
-            throw new ServletException("Maximum size of language is 255");
+        if (language != null) {
+            if (language.length() > 255){
+                throw new ServletException("Maximum size of language is 255");
+            }
         }
         //Create a json object as an easy check for an SQL insert attack
         String workingDecoded = URLDecoder.decode(workingEncoded);
@@ -237,15 +243,19 @@ public class SaveWireit extends WireitSQLBase {
             }
         }
         //Check that the name and length exist and are not too long.
-        if (nameEncoded.length() > 255){
-            throw new ServletException("Maximum size of name is 255");
+        if (nameEncoded != null) {
+            if (nameEncoded.length() > 255){
+                throw new ServletException("Maximum size of name is 255");
+            }
         }
-        if (language.length() > 255){
-            throw new ServletException("Maximum size of language is 255");
+        if (language != null) {
+            if (language.length() > 255){
+                throw new ServletException("Maximum size of language is 255");
+            }
         }
-       
-        // URL encode th name to get rid of spaces even though file names can containe them
-        //nameEncoded = URLEncoder.encode(name, "UTF-8"); // Alredy seems to be encoded!
+
+        // URL encode th name to get rid of spaces even though file names can contain them
+        //nameEncoded = URLEncoder.encode(name, "UTF-8"); // Already seems to be encoded!
         
         //Create a json object as an easy check for an SQL insert attack
         String jsonWiringDecoded = URLDecoder.decode(jsonWiringEncoded);

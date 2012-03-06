@@ -26,14 +26,14 @@ public abstract class Module {
     /**
      * Json representation of any configuration parameters.
      * Configuration is typically not changed by executing the module so the json format is stored.
-     * Modules that require extra configuation details will extract them. 
+     * Modules that require extra configuration details will extract them.
      */
     JSONObject config;
     /**
      * The "value" object is actually a map of value names to values.
-     * These are stored in a Hashmap so they can be updated as required by the sub classes.
+     * These are stored in a Hash map so they can be updated as required by the sub classes.
      * This is only a store of the values included in the Json object to represent the pipe in WireIt.
-     *     It only includes values received from or passed to terminals, if these have been set or will shwon in WireIt.
+     *     It only includes values received from or passed to terminals, if these have been set or will shown in WireIt.
      */
     HashMap <String, Object> values;
     
@@ -42,7 +42,7 @@ public abstract class Module {
      * <p>
      * "config" is just saved as json, leaving any config based construction to the sub classes.
      * <p>
-     * The values are stored in a hashmap so are readly for subclasses to update during execution.
+     * The values are stored in a hash map so are ready for subclasses to update during execution.
      * 
      * @param json JSON representation of the modules.
      * @throws JSONException Thrown if the json is not in the expected format.
@@ -95,7 +95,7 @@ public abstract class Module {
      * There are two ways to trigger a module to run.
      * <p>
      * Modules that do not depend on any upstream modules will begin execution on this command.
-     *    Typically these are Input modules and any workflows with no input prosts
+     *    Typically these are Input modules and any workflows with no input ports
      * <p>
      * Modules that depend on upstream modules should ignore this command.
      *    Instead these modules will execute upon receiving the last required input.

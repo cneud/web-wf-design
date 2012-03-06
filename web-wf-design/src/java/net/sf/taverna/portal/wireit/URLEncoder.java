@@ -96,7 +96,7 @@ public class URLEncoder {
 	 * list. It is also noteworthy that this is consistent with
 	 * O'Reilly's "HTML: The Definitive Guide" (page 164).
 	 *
-	 * As a last note, Intenet Explorer does not encode the "@"
+	 * As a last note, Internet Explorer does not encode the "@"
 	 * character which is clearly not unreserved according to the
 	 * RFC. We are being consistent with the RFC in this matter,
 	 * as is Netscape.
@@ -122,7 +122,7 @@ public class URLEncoder {
 	dontNeedEncoding.set('.');
 	dontNeedEncoding.set('*');
 
-    	dfltEncName = (String)AccessController.doPrivileged (
+    	dfltEncName = AccessController.doPrivileged (
 	    new GetPropertyAction("file.encoding")
     	);
     }
@@ -167,7 +167,7 @@ public class URLEncoder {
      * "http://www.w3.org/TR/html40/appendix/notes.html#non-ascii-chars">
      * World Wide Web Consortium Recommendation</a> states that
      * UTF-8 should be used. Not doing so may introduce
-     * incompatibilites.</em>
+     * incompatibilities.</em>
      *
      * @param   s   <code>String</code> to be translated.
      * @param   enc   The name of a supported 
@@ -183,7 +183,7 @@ public class URLEncoder {
 	throws UnsupportedEncodingException {
 
 	boolean needToChange = false;
-        StringBuffer out = new StringBuffer(s.length());
+        StringBuilder out = new StringBuilder(s.length());
 	Charset charset;
 	CharArrayWriter charArrayWriter = new CharArrayWriter();
 
@@ -250,21 +250,21 @@ public class URLEncoder {
 		charArrayWriter.flush();
 		String str = new String(charArrayWriter.toCharArray());
 		byte[] ba = str.getBytes(charset);
-		for (int j = 0; j < ba.length; j++) {
-		    out.append('%');
-		    char ch = Character.forDigit((ba[j] >> 4) & 0xF, 16);
-		    // converting to use uppercase letter as part of
-		    // the hex value if ch is a letter.
-		    if (Character.isLetter(ch)) {
-			ch -= caseDiff;
-		    }
-		    out.append(ch);
-		    ch = Character.forDigit(ba[j] & 0xF, 16);
-		    if (Character.isLetter(ch)) {
-			ch -= caseDiff;
-		    }
-		    out.append(ch);
-		}
+            for (byte aBa : ba) {
+                out.append('%');
+                char ch = Character.forDigit((aBa >> 4) & 0xF, 16);
+                // converting to use uppercase letter as part of
+                // the hex value if ch is a letter.
+                if (Character.isLetter(ch)) {
+                    ch -= caseDiff;
+                }
+                out.append(ch);
+                ch = Character.forDigit(aBa & 0xF, 16);
+                if (Character.isLetter(ch)) {
+                    ch -= caseDiff;
+                }
+                out.append(ch);
+            }
 		charArrayWriter.reset();
 		needToChange = true;
 	    }

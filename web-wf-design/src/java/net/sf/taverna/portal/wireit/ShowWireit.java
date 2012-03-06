@@ -1,14 +1,15 @@
 package net.sf.taverna.portal.wireit;
 
-import java.net.URLDecoder;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import javax.servlet.ServletException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import javax.servlet.ServletException;
+import java.net.URLDecoder;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /**
- * Debug class used to retreive and show a single saved pipe well formatted.
+ * Debug class used to retrieve and show a single saved pipe well formatted.
  * @author Christian
  */
 public class ShowWireit extends WireitSQLBase {

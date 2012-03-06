@@ -1,22 +1,19 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.sf.taverna.portal.wireit.module;
 
 import net.sf.taverna.portal.utils.DelimiterURI;
-import net.sf.taverna.portal.wireit.exception.WireItRunException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import org.json.JSONException;
-import org.json.JSONObject;
 import net.sf.taverna.portal.wireit.event.OutputFirer;
 import net.sf.taverna.portal.wireit.event.OutputListener;
+import net.sf.taverna.portal.wireit.exception.WireItRunException;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.net.URI;
+import java.net.URISyntaxException;
 
 /**
  * This class handles all modules where the only value is a uri.
  * <p>
- * This could be an Input, and Output or a passthrough module as all have just one "uri" value.
+ * This could be an Input, and Output or a pass through module as all have just one "uri" value.
  * <p>
  * This could be a straight URI or a Baclava Module as both have just one "uri" value.
  * 
@@ -36,7 +33,7 @@ public class URILinkModule extends Module implements OutputListener{
     /** The expected name of the value, passed from and to WireIt */
     private final String VALUE_SAVE_NAME = "uri";
             
-    /** Flag to let run method know if it shoudl execute or if outputReady will cause execution. */
+    /** Flag to let run method know if it should execute or if outputReady will cause execution. */
     private boolean expectingInput;
 
     /**
@@ -56,7 +53,7 @@ public class URILinkModule extends Module implements OutputListener{
      * Returns an OutputLister for the input ports.
      * <p>
      * The assumption is that this method is only called if the module is being wired to an upstream module.
-     * This results in the module wiating for outputReady to be called rather than executing on the run method.
+     * This results in the module waiting for outputReady to be called rather than executing on the run method.
      * <p>
      * See Wiring.java for more details.
      * 

@@ -1,5 +1,12 @@
 package net.sf.taverna.portal.wireit;
 
+import org.apache.commons.io.FileUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
@@ -8,13 +15,8 @@ import java.net.URLDecoder;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
 //Json element are optional and can be commented out.
-import org.apache.commons.io.FileUtils;
-import org.json.JSONArray;
-import org.json.JSONException;
 
 /**
  * Reads the save WireIt workings from database and returns then to WireIt.
@@ -61,7 +63,7 @@ public class ListWireit extends WireitSQLBase {
     }
         
     /**
-     * Reads the save WireIt workings for this langauge from database and returns then to WireIt.
+     * Reads the save WireIt workings for this language from database and returns then to WireIt.
      * <p>
      *     See WireIt\examples\ajaxAdapter\listWirings.json for an example format.
      * <p>
@@ -70,7 +72,7 @@ public class ListWireit extends WireitSQLBase {
      * <li>Wireit sends out URLEncoded but expects URLDecoded back</li>
      * <li>Wireit expects back Json (even though that is not sent out)</li>
      * <li>All the objects are Strings so must be wrapped in quotes</li>
-     * <li>The quotes within the working String but all be preceeded by a \</li>
+     * <li>The quotes within the working String but all be preceded by a \</li>
      * </ul>
      * @param request Should have a language parameter.
      * @param response Returns the wirings in the format WireIt expects.
@@ -117,7 +119,7 @@ public class ListWireit extends WireitSQLBase {
         
         File[] jsonFiles = jsonWiringsDir.listFiles(jsonFileFilter);
         
-        StringBuffer strBuffer = new StringBuffer();
+        StringBuilder strBuffer = new StringBuilder();
         strBuffer.append("[");
         boolean notFirst = false;
         int i = 0;
@@ -136,9 +138,9 @@ public class ListWireit extends WireitSQLBase {
             strBuffer.append("\"name\":\"");
             strBuffer.append(name);
             strBuffer.append("\",\n");
-            //Json needs quotes " to be escpaped
+            //Json needs quotes " to be escaped
             jsonString = jsonString.replace("\"", "\\\"");
-            //Json needs carriage returns to be escpaed.
+            //Json needs carriage returns to be escaped.
             jsonString = jsonString.replace("\\n", "\\\\n");
             strBuffer.append("\"working\":\"");
             //JSONObject workingJson = new JSONObject(working);
@@ -208,9 +210,9 @@ public class ListWireit extends WireitSQLBase {
         builder.append(name);
         builder.append("\",\n");
         String working = URLDecoder.decode(rset.getString("working"));
-        //Json needs quotes " to be escpaped
+        //Json needs quotes " to be escaped
         working = working.replace("\"","\\\"");
-        //Json needs carriage returns to be escpaed.
+        //Json needs carriage returns to be escaped.
         working = working.replace("\\n","\\\\n");
         builder.append("\"working\":\"");
         //JSONObject workingJson = new JSONObject(working);
@@ -226,9 +228,9 @@ public class ListWireit extends WireitSQLBase {
     /**
      * Testing and showing method.
      * 
-     * Reads the data from the database prints it out unformated. 
-     * Checks it is parsabale json
-     * Prints it out formated.
+     * Reads the data from the database prints it out unformatted.
+     * Checks it is parsable json
+     * Prints it out formatted.
      * <p>
      * This method is optional. Comment out if org.json not included.
      * 

@@ -11,7 +11,7 @@ import net.sf.taverna.portal.wireit.event.OutputListener;
  * <p>
  * This module is only expected to save any inputs.
  * <p>
- * WARNING: This is a prototype so does not yet handle all possible input types. Please Exstend accordingly.
+ * WARNING: This is a prototype so does not yet handle all possible input types. Please extend accordingly.
  * @author Christian
  */
 public class OutputModule extends Module implements OutputListener{
@@ -61,8 +61,8 @@ public class OutputModule extends Module implements OutputListener{
     /**
      * Passes the Object on to any downstream modules.
      * 
-     * WARNING: This is a prototype so does not yet handle all possible input types. Please Exstend accordingly.
-     *    This will only cause an problem if the Object is a type which can not be handled corrently 
+     * WARNING: This is a prototype so does not yet handle all possible input types. Please extend accordingly.
+     *    This will only cause an problem if the Object is a type which can not be handled correctly
      *        by the JSONObject constructor.
      * @param outputBuilder Logging buffer. 
      * @throws  WireItRunException Not thrown by this method but is thrown by superclass versions.

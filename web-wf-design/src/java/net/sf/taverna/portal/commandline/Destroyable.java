@@ -5,7 +5,7 @@ package net.sf.taverna.portal.commandline;
  * 
  * @author Christian
  */
-public interface Destoryable {
+public interface Destroyable {
     
     /**
      * Destroys (Stops) this Object or more likely the process that it wraps)

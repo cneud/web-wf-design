@@ -70,9 +70,9 @@ public class CommandLineWrapper extends ChangeFirer{
         fireStateChanged();
     }
 
-    /* Retreives a pointer to the directory that holds the bat or script file.
+    /* Retrieves a pointer to the directory that holds the bat or script file.
      * 
-     * Because the setter will only set a correct value this method can be assumed to retrun a correct directory 
+     * Because the setter will only set a correct value this method can be assumed to return a correct directory
      *    or throw an exception. 
      * @return Directory that holds the bat or script file.
      * @throws TavernaException Thrown if the directory has not been set.
@@ -134,7 +134,7 @@ public class CommandLineWrapper extends ChangeFirer{
      * @throws IOException Thrown if the file can not be read.
      * @throws TavernaException Thrown if the workflow file does not have the expected xml format.
      *     This could either be because the workflow is incorrect 
-     *     cr because its format is different to the one harded code in.
+     *     or because its format is different to the one in hard code.
      */
     public void setWorkflowFile(File file) throws IOException, TavernaException{
         Utils.checkFile(file);
@@ -192,7 +192,7 @@ public class CommandLineWrapper extends ChangeFirer{
     * Gets the workflow name if any or null if no workflow was set.
     * <p>
     * As workflow setters throw an exception if the workflow to be set does not have the workflow name 
-    *    in the expected place, a null restult here can be assumed to mean no workflow set.
+    *    in the expected place, a null result here can be assumed to mean no workflow set.
     * 
     * @return The name of the workflow or null if no workflow was set.
     */
@@ -215,7 +215,7 @@ public class CommandLineWrapper extends ChangeFirer{
      * Returns a mapping of input names to the depth of that input.
      * 
      * This method will always return a map not null.
-     * If the map is empty (size = 0) this could neam either, no workflow has been set 
+     * If the map is empty (size = 0) this could mean either, no workflow has been set
      *    or that the workflow set does not require inputs.
      * @return 
      */
@@ -233,7 +233,7 @@ public class CommandLineWrapper extends ChangeFirer{
      * 
      * @param newInputs Array of the inputs which are assumed to have values associated with them.
      * @throws TavernaException Thrown if no workflow has been correctly set.
-     *     Also thrown it the newInputs names do not map one to one to the expected inputs (Case Senstitive), 
+     *     Also thrown it the newInputs names do not map one to one to the expected inputs (case sensitive),
      *     including if there are few or nor than the expected inputs.
      */
     public void setInputs(TavernaInput[] newInputs) throws TavernaException{
@@ -285,12 +285,12 @@ public class CommandLineWrapper extends ChangeFirer{
     /**
      * Collectively sets all inputs as coming from a single file pointed to by this uri
      * 
-     * The input file must be in xml (barclava format) and contain at least the expected inputs (case senstivie).
-     * Extra values can be included but ignored as Taverna also allow axtra values which are ignored.
+     * The input file must be in xml (baclava format) and contain at least the expected inputs (case sensitive).
+     * Extra values can be included but ignored as Taverna also allow extra values which are ignored.
      * <p>
-     * Running this method even if an expcetion is thrown, clears any previously set inputs, including file or uri.
+     * Running this method even if an exception is thrown, clears any previously set inputs, including file or uri.
      * 
-     * @param uri Points to a single barclava file containing at least the required inputs (case senstivie).
+     * @param uri Points to a single baclava file containing at least the required inputs (case sensitive).
      * @throws TavernaException Thrown if no workflow has been set or if an expected input is missing
      * @throws ParserConfigurationException Thrown if the String can not be converted to a correct uri
      * @throws SAXException Thrown if the file can not be parsed as xml.
@@ -302,7 +302,7 @@ public class CommandLineWrapper extends ChangeFirer{
             throw new TavernaException ("Illegal attempt to load inputs before workflow");
         }
         DataThingBasedBaclava baclava = new DataThingBasedBaclava(uri);
-        for (String inputName:inputs.keySet().toArray(new String[0])){
+        for (String inputName: inputs.keySet().toArray(new String[inputs.keySet().size()])){
             if (!baclava.hasValue(inputName)) {
                 throw new TavernaException("Unable to find input " + inputName + " in " + uri);
             }
@@ -324,27 +324,18 @@ public class CommandLineWrapper extends ChangeFirer{
      *   <li> TavernaHome has not be set
      *   <li> No workflow has been set
      *   <li> No output directory has been set
-     *   <li> The workflow requires inputs but no inputs, inpit file or input uri has been set.
+     *   <li> The workflow requires inputs but no inputs, input file or input uri has been set.
      * </ul>
      * <p>
      * Note true does not guarantee that the workflow wil run correctly only that the wrapper is ready to try.
      * 
-     * @return False if a reason not to run the workflow is unkown otherwise true.
+     * @return False if a reason not to run the workflow is unknown otherwise true.
      */
     public boolean readyToRun(){
         if (tavernaHome == null){
             return false;
         }
-        if (workflowURI == null){
-            return false;
-        }
-        if (outputRoot == null){
-            return false;
-        }
-        if (inputs.size() > 0){
-            return (inputValues != null || inputsURI != null) ;
-        }
-        return true;
+        return workflowURI != null && outputRoot != null && (inputs.size() <= 0 || (inputValues != null || inputsURI != null));
     }
 
     /**
@@ -356,7 +347,7 @@ public class CommandLineWrapper extends ChangeFirer{
      *   <li> TavernaHome has not be set
      *   <li> No workflow has been set
      *   <li> No output directory has been set
-     *   <li> The workflow requires inputs but no inputs, inpit file or input uri has been set.
+     *   <li> The workflow requires inputs but no inputs, input file or input uri has been set.
      * </ul>
      */
     public CommandLineRun runWorkFlow() throws TavernaException, URISyntaxException {

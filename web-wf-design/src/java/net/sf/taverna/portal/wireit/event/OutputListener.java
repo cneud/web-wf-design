@@ -11,11 +11,11 @@ public interface OutputListener {
     /**
      * Receives the Object on to any upstream module.
      * <p>
-     * This could cuase the module to execute.
+     * This could cause the module to execute.
      * Any log information is written to the outputBuilder.
      * @param output Information being passed from one module to another.
      * @param outputBuilder Logging buffer. 
-     * @throws WireItRunException Something has gone wrong. This could be caused by exectution 
+     * @throws WireItRunException Something has gone wrong. This could be caused by execution
      *    or even one of the downstream modules.
      */
     public void outputReady(Object output, StringBuilder outputBuilder) throws WireItRunException;

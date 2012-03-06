@@ -5,7 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Input module for a depth 1 port where inputs are provided as a String values seperated by a newline.
+ * Input module for a depth 1 port where inputs are provided as a String values separated by a newline.
  * <p>
  * The only role of this module is to pass the values received from WireIt to the downstream modules.
  * @author Christian
@@ -25,7 +25,7 @@ public class InputListModule extends InputModule{
     /**
      * Splits the value into an array of strings and passes this array to any listeners.
      * <p>
-     * The Inpout "value" is assumed to be newline delimited, as that is what WireIt's textField does.
+     * The Input "value" is assumed to be newline delimited, as that is what WireIt's textField does.
      * @param outputBuilder Logging buffer.
      * @throws WireItRunException Any Exception caught will be wrapped in a single Exception type.
      */

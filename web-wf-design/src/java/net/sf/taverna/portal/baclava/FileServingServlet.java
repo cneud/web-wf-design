@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.sf.taverna.portal.baclava;
 
 import eu.medsea.mimeutil.MimeType;
@@ -77,10 +73,10 @@ public class FileServingServlet extends HttpServlet {
             throws ServletException, IOException {
 
         // Get the file to fetch/serve to the user
-        String dataFilePath = URLDecoder.decode((String) request.getParameter(DATA_FILE_PATH), "UTF-8");
+        String dataFilePath = URLDecoder.decode(request.getParameter(DATA_FILE_PATH), "UTF-8");
         
         // Get the content type of the file to fetch (this is also passed as a parameter)
-        String mimeType = URLDecoder.decode((String) request.getParameter(MIME_TYPE), "UTF-8");
+        String mimeType = URLDecoder.decode(request.getParameter(MIME_TYPE), "UTF-8");
 
         // Is this the thumbnail of the image or the actual size?
         boolean isThumbnail = request.getQueryString().contains("thumbnail");

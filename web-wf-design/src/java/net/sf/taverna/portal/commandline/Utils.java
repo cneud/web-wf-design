@@ -17,7 +17,7 @@ public class Utils {
      * Checks to make sure a directory exists.
      * @param dir Directory to check.
      * @NullPointerException If the directory is null
-     * @FileNotFoundException If the directory does nnot exists
+     * @FileNotFoundException If the directory does not exist
      * @throws IOException If the directory is not a directory or can not be read.
      */
     public static void checkDirectory(File dir) throws IOException{
@@ -36,7 +36,7 @@ public class Utils {
     }
 
     /**
-     * Check to see that a file appear exectuable.
+     * Check to see that a file appear executable.
      * @param file File to be tested.
      * @throws NullPointerException If the file is null.
      * @throws FileNotFoundException If the file does not exists or is not a file.
@@ -83,9 +83,9 @@ public class Utils {
      * @param parent Directory to create this directory in.
      * @return new created directory
      * @NullPointerException If the directory is null
-     * @FileNotFoundException If the directory does nnot exists
+     * @FileNotFoundException If the directory does not exists
      * @throws IOException If the parent is not a directory or can not be read.
-     *     Also thrown if the new directory is not a directory becasue either it could not be created 
+     *     Also thrown if the new directory is not a directory because either it could not be created
      * or is already a file.
      */
     public static File createCalendarBasedDirectory(File parent) throws IOException{
@@ -105,7 +105,7 @@ public class Utils {
     }
     
     /** 
-     * Dettermines if the system this is run on is Windows or not.
+     * Determines if the system this is run on is Windows or not.
      * 
      * Works by checking of the os.name property begins with "win" ignoring case.
      * 
@@ -114,7 +114,7 @@ public class Utils {
     public static boolean isWindows(){
 		String os = System.getProperty("os.name").toLowerCase();
 		//windows
-	    return (os.indexOf( "win" ) >= 0); 
+	    return (os.contains("win"));
 	}
 
 

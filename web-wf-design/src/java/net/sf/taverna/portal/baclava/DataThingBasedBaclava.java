@@ -1,8 +1,13 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.sf.taverna.portal.baclava;
+
+import net.sf.taverna.portal.commandline.TavernaException;
+import net.sf.taverna.t2.baclava.DataThing;
+import net.sf.taverna.t2.baclava.factory.DataThingFactory;
+import net.sf.taverna.t2.baclava.factory.DataThingXMLFactory;
+import org.jdom.Document;
+import org.jdom.Element;
+import org.jdom.Namespace;
+import org.jdom.input.SAXBuilder;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,16 +15,7 @@ import java.io.InputStream;
 import java.net.URI;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
-import org.jdom.input.SAXBuilder;
 import java.util.Map;
-import net.sf.taverna.t2.baclava.DataThing;
-import net.sf.taverna.t2.baclava.factory.DataThingXMLFactory;
-import org.jdom.Document;
-import net.sf.taverna.portal.commandline.TavernaException;
-import net.sf.taverna.t2.baclava.factory.DataThingFactory;
-import org.jdom.Element;
-import org.jdom.Namespace;
 
 /**
  * With thanks to:
@@ -58,8 +54,7 @@ public class DataThingBasedBaclava {
     }
 
     private void checkData(){
-        for (Iterator i = dataThingMap.keySet().iterator(); i.hasNext();) { 
-            String portName = (String) i.next();
+        for (String portName : dataThingMap.keySet()) {
             DataThing dataThing = dataThingMap.get(portName);
             Object dataObject = dataThing.getDataObject();
             int dataDepth = calculateDataDepth(dataObject);
@@ -136,7 +131,7 @@ public class DataThingBasedBaclava {
 	Element rootElement = new Element("dataThingMap", BACLAVA_NAMESPACE);
 	Document document = new Document(rootElement);
 	for (String key : dataThings.keySet()) {
-		DataThing value = (DataThing) dataThings.get(key);
+		DataThing value = dataThings.get(key);
 		Element dataThingElement = new Element("dataThing", BACLAVA_NAMESPACE);
 		dataThingElement.setAttribute("key", key);
 		dataThingElement.addContent(value.getElement());
